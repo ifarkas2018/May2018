@@ -42,11 +42,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> 
         <link rel="stylesheet" href="css/templatecss.css">
         <script>
-            // setCookie: creates cookie cname = value in the input field ;
-            // input_id the id of the input field where the user entered the value ( which needs to be written to the cookie )
-            function cookieFillIn(cname) {                
-                document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                document.cookie = cname + "=false;"; // creating a cookie
+            // setCookie: creates 2 cookies 
+            // 1. cookie : fill_in = false 
+            // 2. cookie : webpg_name = webPageVal
+            function cookieFillIn( webPageVal ) {                
+                //document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
+                document.cookie = "fill_in=false;"; // creating a cookie
+                document.cookie = "webpg_name=" + webPageVal;
             }
         </script>
     </head>
@@ -186,11 +188,11 @@
                                             </a>
                                             <!-- the dropdown submenu -->
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="search_page.jsp">Search Book</a> <!-- Search Book link on the submenu --> 
+                                                <a class="dropdown-item" href="FillIn" onclick = "cookieFillIn('search_page.jsp')">Search Book</a> <!-- Search Book link on the submenu --> 
                                                 <div class="dropdown-divider"></div> <!-- the divider on the drop down menu -->
                                                 <a class="dropdown-item" href="add_page.jsp">Add Book</a> <!-- Add Book link on the submenu --> 
-                                                <a class="dropdown-item" href="FillIn" onclick="cookieFillIn('fill_in')" >Update Book</a> <!-- Update Book link on the submenu --> 
-                                                <a class="dropdown-item" href="delete_title.jsp">Delete Book</a> <!-- Delete Book link on the submenu --> 
+                                                <a class="dropdown-item" href="FillIn" onclick = "cookieFillIn('update_prev.jsp')">Update Book</a> <!-- Update Book link on the submenu --> 
+                                                <a class="dropdown-item" href="FillIn" onclick = "cookieFillIn('delete_title.jsp')">Delete Book</a> <!-- Delete Book link on the submenu --> 
                                             </div>
                                         </li>
                                 <%
@@ -214,7 +216,7 @@
                                 %>    
                                         <!-- Sign Up link on the navbar -->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="SignUp">Sign Up</a>
+                                            <a class="nav-link" href="FillIn" onclick="cookieFillIn('SignUp')">Sign Up</a>
                                         </li>
                                 <% 
                                     }
@@ -235,7 +237,7 @@
                                 %>    
                                         <!-- Login link on the navbar -->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="login_page.jsp">Login</a>
+                                            <a class="nav-link" href="FillIn" onclick = "cookieFillIn( 'login_page.jsp' )">Login</a>
                                         </li>
                                 <%
                                     }

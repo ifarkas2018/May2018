@@ -35,7 +35,6 @@
             }
             
         %>
-        
         <!-- including the file header.jsp into this file -->
         <!-- header.jsp contains - company logo, company name and the navigation bar -->
         <%@ include file="header.jsp"%> 
@@ -44,5 +43,6 @@
         <!-- including the file footer.jsp into this file -->
         <!-- footer.jsp contains the footer of the web page --> 
         <%@ include file="footer.jsp"%> 
+        
     </body>
 </html>

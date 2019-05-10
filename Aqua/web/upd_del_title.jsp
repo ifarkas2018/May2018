@@ -21,30 +21,40 @@
             
         </style>
         <script>
-            // setCookie: creates cookie cname = value in the input field ;
-            // input_id the id of the input field where the user entered the value ( which needs to be written to the cookie )
-            // for ME : cname = input0 or input1,... inputid=username @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            function setCookie(cname, input_id) {
-              //var d = new Date();
-              //d.setTime(d.getTime() + (exdays*24*60*60*1000));
-              //var expires = "expires=" + d.toGMTString();
-              //document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-
-              document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // DELETING a cookie
-
-              document.cookie = cname + "=" + document.getElementById(input_id).value + ";"; // creating a cookie
-              cookie1 = document.cookie;
-              // alert("cname=" + cname + "cvalue" + cvalue );
-              document.getElementById("demo").innerHTML = cname + "=" + document.getElementById(input_id).value + ";" ; // document.getElementById(input_id).value
-
+            NUM_FIELDS = 3; // number of the input fields on the form  
+            // setCookie: creates cookie inputI = value in the input field ; ( I - number 0..2 )
+            function setCookie() {           
+                var i;
+                var inp_names = new Array('prev_title', 'prev_author', 'prev_isbn'); // names of the input fields
+                
+                for ( i = 0; i < NUM_FIELDS; i++ ) {
+                    document.cookie = "input" + i + "=" + document.getElementById(inp_names[i]).value + ";"; // creating a cookie
+                } 
             }
             
-            // setDefaults : sets the values of the cookies ( input0, input1, input2 ) to the default
+            // setDefaults : sets the values of the cookies ( input0, input1, input12 ) to the default and
+            // writes the content of every input field to the cookie
             function setDefaults() {
-                document.cookie = "input0" + "= "; // setting the VALUE of the cookie to EMPTY
-                document.cookie = "input1" + "= "; // setting the VALUE of the cookie to EMPTY
-                document.cookie = "input2" + "= "; // setting the VALUE of the cookie to EMPTY
-            }
+                /*document.cookie = "input0" + "= "; // setting the VALUE of the cookie to EMPTY
+                document.cookie = "input1" + "= "; 
+                document.cookie = "input2" + "= "; 
+                document.cookie = "input3" + "= "; // setting the VALUE of the cookie to EMPTY
+                document.cookie = "input4" + "= "; 
+                document.cookie = "input5" + "= "; 
+                document.cookie = "input6" + "= "; 
+                document.cookie = "input7" + "= "; 
+                document.cookie = "input8" + "= "; 
+                document.cookie = "input9" + "= "; 
+                document.cookie = "input10" + "= "; 
+                document.cookie = "input11" + "= "; 
+                document.cookie = "input12" + "= "; */
+                // var NUM_FIELDS = 3; // number of the input fields on the form   
+                var i;
+                for ( i = 0; i < NUM_FIELDS; i++ ) {
+                    document.cookie = "input" + i + "= "; // setting the VALUE of the cookie to EMPTY
+                }
+                setCookie(); // go through every input field and write its content to the cookie
+            } 
             
         </script>
         <%
@@ -116,12 +126,12 @@
                                     String input1 = ""; // read the value  in the input field prev_author and show it again
                                     String input2 = ""; // read the value which was before in the input field prev_isbn and show it again        
                                     
-                                    if (AquaMethods.sessVarExists(hSession2, "input1")) { 
-                                        String str1 = String.valueOf(hSession2.getAttribute("input1")); 
-                                    }
+                                    //if (AquaMethods.sessVarExists(hSession2, "input1")) { 
+                                        //String str1 = String.valueOf(hSession2.getAttribute("input1")); 
+                                    //}
                                     
                                     // IDEA : fill_in variable is set in SubscrServl.java - true if some of the input session variables were set,
-                                    // and they need to be added to the form here - this true if the user BEFORE LOADED THIS PAGE and after that he entered
+                                    // and they need to be added to the form here - this is true if the user BEFORE LOADED THIS PAGE and after that he entered
                                     // the email to subscribe ( in the footer ) and on the next page he clicked on Close
                                     if (AquaMethods.sessVarExists(hSession2, "fill_in")) { 
                                         String fill_in = String.valueOf(hSession2.getAttribute("fill_in")); 
@@ -131,16 +141,16 @@
                                             String page_name = String.valueOf(hSession2.getAttribute("page_name"));
                                             // if the user clicked on the Close button on the page subscrres_content and this page was shown before (page_name)
                                             // and if something is stored in session variables input 
-                                            // then retrieve the session variable input0 ( to show it in the input field username 
+                                            // then retrieve the session variable input0 ( to show it in the 1st input field 
                                             if ((page_name.equalsIgnoreCase(PAGE_NAME)) && (fill_in.equalsIgnoreCase("true"))) {
                                                 if (AquaMethods.sessVarExists(hSession2, "input0")) {
-                                                    input0 = String.valueOf(hSession2.getAttribute("input0")); // the value that was in this input field
+                                                    input0 = String.valueOf(hSession2.getAttribute("input0")); // the value that was in the 1st input field
                                                 } 
                                                 if (AquaMethods.sessVarExists(hSession2, "input1")) {
-                                                    input1 = String.valueOf(hSession2.getAttribute("input1")); // the value that was in this input field
+                                                    input1 = String.valueOf(hSession2.getAttribute("input1")); // the value that was in the 2nd input field
                                                 } 
                                                 if (AquaMethods.sessVarExists(hSession2, "input2")) {
-                                                    input2 = String.valueOf(hSession2.getAttribute("input2")); // the value that was in this input field
+                                                    input2 = String.valueOf(hSession2.getAttribute("input2")); // the value that was in the 3rd input field
                                                 } 
                                                 
                                                 //AquaMethods.setToEmptyInput(request, hSession2); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
@@ -156,25 +166,26 @@
                                     hSession2.setAttribute("page_name", PAGE_NAME);
                                     AquaMethods.setToEmptyInput(request, hSession2 ); // setToEmpty: set the session variable values to "" for the variables named input0, input1, ...
                                 %>
+                                
                                     <!-- creating the input element for the title -->
                                     <div class="form-group">
-                                        <label for="labtitle">Title:</label> <!-- title label -->
+                                        <label for="prev_title">Title:</label> <!-- title label -->
                                         <!-- filling in the title: required -->
-                                        <input type="text" class="form-control form-control-sm" name="prev_title" id="prev_title" onchange="setCookie('input0','prev_title')" required value = "<%= input0 %>" > 
+                                        <input type="text" class="form-control form-control-sm" name="prev_title" id="prev_title" onchange="setCookie()" required value = "<%= input0 %>" > 
                                         <label class="text_color">* Required Field</label>
                                     </div>
                                         
                                     <!-- creating the input element for the author -->
                                     <div class="form-group">
-                                        <label for="labauthor">Author's Name:</label> <!-- author's name label -->
-                                        <input type="text" class="form-control form-control-sm" name="prev_author" id="prev_author" onchange="setCookie('input1','prev_author')" value = "<%= input1 %>" >  
+                                        <label for="prev_author">Author's Name:</label> <!-- author's name label -->
+                                        <input type="text" class="form-control form-control-sm" name="prev_author" id="prev_author" onchange="setCookie()" value = "<%= input1 %>" >  
                                     </div>
                 
                                     <!-- creating the input element for the ISBN -->
                                     <div class="form-group">
-                                        <label for="labisbn">ISBN:</label> <!-- ISBN label -->
+                                        <label for="prev_isbn">ISBN:</label> <!-- ISBN label -->
                                         <!-- input field for the ISBN: maximum 13 characters -->
-                                        <input type="text" class="form-control form-control-sm" maxlength="13" name="prev_isbn" id="prev_isbn" onchange="setCookie('input2','prev_isbn')" value = "<%= input2 %>" > 
+                                        <input type="text" class="form-control form-control-sm" maxlength="13" name="prev_isbn" id="prev_isbn" onchange="setCookie()" value = "<%= input2 %>" > 
                                     </div>
                                     <div class="container">                                                                               
 
