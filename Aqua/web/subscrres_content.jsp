@@ -18,8 +18,15 @@
                 color:red; /* red text color */
             }
         </style>
+        
+        <script>
+            function setFillIn(){
+                document.cookie = "fill_in=true;"; // should the user return to the form he was on before subscribing the fill_in should be true
+                alert("subscrres_content: " + document.cookie);
+            }
+        </script>
     </head>
-    <body>
+    <body onload="setFillIn()">
         <!-- adding a new row to the Bootstrap grid; class whitebckgr is for setting the background to white -->
         <div class="whitebckgr">
             <div class="row"> <!-- adding a new row to the Bootstrap grid -->

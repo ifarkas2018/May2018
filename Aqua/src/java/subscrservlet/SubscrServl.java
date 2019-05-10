@@ -83,9 +83,9 @@ public class SubscrServl extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {	    
             HttpSession hSession2 = AquaMethods.returnSession(request);
             
-            if (AquaMethods.sessVarExists(hSession2, "input1")) { 
-                String str1 = String.valueOf(hSession2.getAttribute("input1")); 
-            }
+            //if (AquaMethods.sessVarExists(hSession2, "input1")) { 
+                //String str1 = String.valueOf(hSession2.getAttribute("input1")); 
+            //}
             
             //String str = String.valueOf(hSession2.getAttribute("page_name"));
             // read the text from the subscr_email ( the footer.jsp ) - Email address for the subscription 
@@ -120,6 +120,8 @@ public class SubscrServl extends HttpServlet {
                 */
                 // set the session variable values to "" for the variables named input0, input1, ...
                 String cookie_name = cookie.getName();
+                //if (cookie_name.equalsIgnoreCase("fill_in"))
+                    //cookie.setValue("true");
                 // is the value in the cookie the text from the input box
                 boolean is_input = cookie_name.startsWith("input", 0); // whether the cookie name I have retrieved contains text from one of the input fileds
                 
@@ -142,9 +144,9 @@ public class SubscrServl extends HttpServlet {
                 }
             }
             
-            if (AquaMethods.sessVarExists(hSession2, "input1")) { 
-                String str1 = String.valueOf(hSession2.getAttribute("input1")); 
-            }
+            //if (AquaMethods.sessVarExists(hSession2, "input1")) { 
+                //String str1 = String.valueOf(hSession2.getAttribute("input1")); 
+            //}
             
             // @@@@@@@@@@@@@@@@@@ the cookies retrieved here add to the session variables @@@@@@@@@@@@@@@@@@@@@@@@@@
             // read the session variables and pu them into input fields when loading the form @@@@@@@@@@@@@@@@@@@@@@@@@@ 

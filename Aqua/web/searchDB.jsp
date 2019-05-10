@@ -171,38 +171,54 @@
                                     ResultSet rs = stmt.executeQuery(sQuery); 
                                     out.println("<br />");
                                     
+                                    /*
                                     if (rs.next()){ // there are books which meet the criteria
                                         out.println("The following books meet the search criteria: ");
                                     } else { // there are none books that meet the criteria
                                         out.println("<span class=\"red_text\">There are none books that meet the search criteria!</span>");
                                     }
+                                    */
                                     
-                                    // show the result in an unordered list
-                                    out.print("<ul>");
-                                    // if in the result set there is the next row
-                                    do 
-                                    {
-                                        // read the value of the title 
-                                        String sTitle = rs.getString("title");
-                                        // read the value of the name of the author
-                                        String sAuthor = rs.getString("au_name");
-                                        // read the price
-                                        String sPrice = rs.getString("price");
-                                        // show the value for the title, author and price
-                                        String descr = rs.getString("descr");
-                                        out.print("<li>" + sTitle + " by (author) " + sAuthor ); 
-                                        // if there is value for the price : show the price
-                                        if (sPrice != null){
-                                            out.print(" ( price: " + sPrice + "GBP )");
-                                        }
-                                        // if there is a book description : show the price
-                                        if (descr != null) {
-                                            out.print("<br />" + "Description: " + descr );
-                                        }
-                                        out.print("</li>");
-                                    } while(rs.next());
+                                    // after clicking on the button searchDB.jsp is shown
+                                    out.println("<form action=\"search_page.jsp\" method=\"post\">");
                                     
-                                    out.print("</ul>");
+                                    if (!(rs.next())){ // there are no books that meet the search criteria
+                                        out.println("<span class=\"red_text\">There are no books that meet the search criteria!</span>");
+                                        out.println("</br></br>");
+                                    } else {
+                                        out.println("The following books meet the search criteria: ");
+                                       
+                                        
+                                        // show the result in an unordered list
+                                        out.print("<ul>");
+                                        // if in the result set there is the next row
+                                        do 
+                                        {
+                                            // read the value of the title 
+                                            String sTitle = rs.getString("title");
+                                            // read the value of the name of the author
+                                            String sAuthor = rs.getString("au_name");
+                                            // read the price
+                                            String sPrice = rs.getString("price");
+                                            // show the value for the title, author and price
+                                            String descr = rs.getString("descr");
+                                            out.print("<li>" + sTitle + " by (author) " + sAuthor ); 
+                                            // if there is value for the price : show the price
+                                            if (sPrice != null){
+                                                out.print(" ( price: " + sPrice + "GBP )");
+                                            }
+                                            // if there is a book description : show the price
+                                            if (descr != null) {
+                                                out.print("<br />" + "Description: " + descr );
+                                            }
+                                            out.print("</li>");
+                                        } while(rs.next());
+
+                                        out.print("</ul>");
+                                    }
+                                    // adding the Search button to the form; btn-sm is used for smaller ( narrower ) size of the control -->
+                                    out.print("<button type=\"submit\" class=\"btn btn-info btn-sm\">Search</button>");
+                                    out.println("</form>");
                                 }catch(Exception e){
                                     String sMessage = "ERR_SEARCH";
                                     String sTitle = "Search!"; // used for passing the title from one JSP script to the other

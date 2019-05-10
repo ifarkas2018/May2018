@@ -19,42 +19,34 @@
             }
         </style>
         <script>
-            first_time = false;
-            // setCookie: creates cookie cname = value in the input field ;
-            // input_id the id of the input field where the user entered the value ( which needs to be written to the cookie )
-            function setCookie(cname, input_id) {
-                if (first_time){
-                    //first_time=true;
-                    //document.cookie = "input3=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    //document.cookie = "input3=" + "";
-                    //document.cookie = "input4=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    //document.cookie = "input4=" + "=" + "";
-                    /*
-                    document.cookie = input5 + "=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    document.cookie = input5 + "=" + "";
-                    document.cookie = input6 + "=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    document.cookie = input6 + "=" + "";
-                    document.cookie = input7 + "=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    document.cookie = input7 + "=" + "";
-                    document.cookie = input8 + "=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    document.cookie = input8 + "=" + "";
-                    document.cookie = input9 + "=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    document.cookie = input9 + "=" + "";
-                    document.cookie = input10 + "=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    document.cookie = input10 + "=" + "";
-                    document.cookie = input11 + "=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    document.cookie = input11 + "=" + "";
-                    document.cookie = input12 + "=" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                    document.cookie = input12 + "=" + "";
-                    */
+            
+            NUM_FIELDS = 12; // maximum number of the input fields on this and the previous forms             
+            START = 3; 
+           
+            // setCookie: creates cookie inputI = value in the input field ; ( I - number 3..12 )
+            function setCookie() {
+                var i;
+                var inp_names = new Array( 'title', 'author', 'isbn', 'price', 'pages', 'category', 'descr', 'publisher', 'publ_city', 'yrpublished' ); // names of the input fields
+                // cookies named input0, input1, input2 were created in upd_del_title.jsp
+                for ( i = START; i <= NUM_FIELDS; i++ ) {
+                    document.cookie = "input" + i + "=" + document.getElementById(inp_names[i-3]).value + ";"; // creating a cookie
+                } 
+            }
+            
+            // setDefaults : sets the values of the cookies ( input0, input1, input2 ) to the default
+            function setDefaults() {
+              
+                var i;
+                
+                for ( i = START; i <= NUM_FIELDS; i++ ) {
+                    document.cookie = "input" + i + "= "; // setting the VALUE of the cookie to EMPTY
                 }
-                document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                document.cookie = cname + "=" + document.getElementById(input_id).value + ";"; // creating a cookie
+                setCookie(); // go through every input field and write its content to the cookie
             }
         </script>
     </head>
     
-    <body>
+    <body onload="setDefaults()">
         <%
             final String PAGE_NAME = "update_page.jsp"; // page which is shown now 
         %>
@@ -173,72 +165,101 @@
                                     <!-- creating the input element for the title -->
                                     <div class="form-group">
                                         <label for="title">Title:</label> <!-- title label -->
-                                        <input type="text" class="form-control form-control-sm" name="title" id="title" onchange="setCookie('input3','title')" value="<%= input3 %>"> <!-- title input field -->
+                                        <input type="text" class="form-control form-control-sm" name="title" id="title" onchange="setCookie()" value="<%= input3 %>"> <!-- title input field -->
                                     </div>
                                         
                                     <!-- creating the input element for the author -->
                                     <div class="form-group">
                                         <label for="author">Author's Name:</label> <!-- author's name label -->
-                                        <input type="text" class="form-control form-control-sm" name="author" id="author" onchange="setCookie('input4','author')" value="<%= input4 %>"> <!-- author input field -->
+                                        <input type="text" class="form-control form-control-sm" name="author" id="author" onchange="setCookie()" value="<%= input4 %>"> <!-- author input field -->
                                     </div>
                 
                                     <!-- creating the input element for the ISBN -->
                                     <div class="form-group">
                                         <label for="isbn">ISBN:</label> <!-- ISBN label -->
                                         <!-- isbn input field : up to 13 characters can be entered -->
-                                        <input type="text" class="form-control form-control-sm" maxlength="13" name="isbn" id="isbn" onchange="setCookie('input5','isbn')" value="<%= input5 %>"> 
+                                        <input type="text" class="form-control form-control-sm" maxlength="13" name="isbn" id="isbn" onchange="setCookie()" value="<%= input5 %>"> 
                                     </div>
                                         
                                     <!-- creating the input element for price -->
                                     <div class="form-group">
                                         <label for="price">Price:</label> <!-- Price label -->
-                                        <input type="text" class="form-control form-control-sm" name="price" id="price" onchange="setCookie('input6','price')" value="<%= input6 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="price" id="price" onchange="setCookie()" value="<%= input6 %>"> 
                                     </div>
                                         
                                     <!-- creating the input element for number of pages -->
                                     <div class="form-group">
                                         <label for="pages">Pages:</label> <!-- Pages label -->
-                                        <input type="text" class="form-control form-control-sm" name="pages" id="pages" onchange="setCookie('input7','pages')" value="<%= input7 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="pages" id="pages" onchange="setCookie()" value="<%= input7 %>"> 
                                     </div>
                                         
                                     <!-- creating the drop down list for the Category -->
                                     <div class="form-group"> 
                                         <label for="category">Category</label> <!-- category label -->
                                         <!-- creating a drop down list; form-control-sm is used for narrower control -->
-                                        <!-- selected @@@@@@@@@@@@@@@@@@ -->
-                                        <select class="form-control form-control-sm" name="category" id="category" onchange="setCookie('input8','category')" value="<%= input8 %>">
-                                            <option value="All">All Categories</option> <!-- options shown in the drop down list -->
-                                            <option value="FicPoet">Fiction &amp; Poetry</option>
-                                            <option value="Business">Business</option>
-                                            <option value="Education">Education</option>
-                                            <option value="Computing">Computing &amp; IT</option>
-                                            <option value="Children">Children's</option>
+                                        <!-- selected @@@@@@@@@@@@@@@@@@  value="= input8 "-->
+                                        <select class="form-control form-control-sm" name="category" id="category" onchange="setCookie()">
+                                            <% if (input8.equalsIgnoreCase("All")){ %>
+                                                <option value="All" selected>All Categories</option> <!-- options shown in the drop down list -->
+                                            <% } else { %>
+                                                <option value="All">All Categories</option>
+                                            <% } %>
+                                            
+                                            <% if (input8.equalsIgnoreCase("FicPoet")){ %>
+                                                <option value="FicPoet" selected>Fiction &amp; Poetry</option> 
+                                            <% } else { %>
+                                                <option value="FicPoet">Fiction &amp; Poetry</option>   
+                                            <% } %>
+                                            
+                                            <% if (input8.equalsIgnoreCase("Business")){ %>
+                                                <option value="Business" selected>Business</option> 
+                                            <% } else { %>
+                                                <option value="Business">Business</option>      
+                                            <% } %>
+                                            
+                                            <% if (input8.equalsIgnoreCase("Education")){ %>
+                                                <option value="Education" selected>Education</option> 
+                                            <% } else { %>
+                                                <option value="Education">Education</option>   
+                                            <% } %>
+                                            
+                                            <% if (input8.equalsIgnoreCase("Computing")){ %>
+                                                <option value="Computing" selected>Computing &amp; IT</option> 
+                                            <% } else { %>
+                                                <option value="Computing">Computing &amp; IT</option>  
+                                            <% } %>
+                                            
+                                            <% if (input8.equalsIgnoreCase("Children")){ %>
+                                                <option value="Children" selected>Children's</option> 
+                                            <% } else { %>
+                                                <option value="Children">Children's</option>  
+                                            <% } %>
                                         </select>
                                     </div>
                                         
                                     <!-- creating the textarea for the book description -->
                                     <div class="form-group">
                                         <label for="descr">Description:</label> <!-- Description label --> 
-                                        <textarea class="form-control" name="descr" id="descr" rows="4" onchange="setCookie('input9','descr')"><%= input9 %></textarea>
+                                        <textarea class="form-control" name="descr" id="descr" rows="4" onchange="setCookie()"><%= input9 %></textarea>
                                     </div>
                                         
                                     <!-- creating the input element for the publisher -->
                                     <div class="form-group">
                                         <label for="publisher">Publisher</label> <!-- publisher label -->
                                         <!-- filling in the publisher is required -->
-                                        <input type="text" class="form-control form-control-sm" name="publisher" id="publisher" onchange="setCookie('input10','publisher')" value="<%= input10 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="publisher" id="publisher" onchange="setCookie()" value="<%= input10 %>"> 
                                     </div>
                                         
                                     <!-- creating the input element for the city of the publisher -->
                                     <div class="form-group">
                                         <label for="publ_city">City ( Publisher )</label> <!-- label of the city of the publisher -->
-                                        <input type="text" class="form-control form-control-sm" name="publ_city" id="publ_city" onchange="setCookie('input11','publ_city')" value="<%= input11 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="publ_city" id="publ_city" onchange="setCookie()" value="<%= input11 %>"> 
                                     </div>
                                         
                                     <!-- creating the input element for year the book was published -->
                                     <div class="form-group">
                                         <label for="yrpublished">Publication Year</label> <!-- the label the book got published -->
-                                        <input type="text" class="form-control form-control-sm" name="yrpublished" id="yrpublished" onchange="setCookie('input12','yrpublished')" value="<%= input12 %>"> 
+                                        <input type="text" class="form-control form-control-sm" name="yrpublished" id="yrpublished" onchange="setCookie()" value="<%= input12 %>"> 
                                     </div> 
                                         
                                     <div class="container">

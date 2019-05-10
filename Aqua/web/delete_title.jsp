@@ -16,7 +16,7 @@
     </head>
     <body>
         <% 
-            HttpSession hSession = request.getSession(); // the session to which I am going to add attributes
+            HttpSession hSession = AquaMethods.returnSession(request); // the session to which I am going to add attributes
             hSession.setAttribute("source_name", "Delete Book"); // on which page I am now
         %>
         <!-- including the file header.jsp -->

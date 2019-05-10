@@ -19,52 +19,30 @@
                 color:red; /* red text color */
             }
         </style>
+        
         <script>
-            // setCookie: creates cookie cname = value in the input field ;
-            // input_id the id of the input field where the user entered the value ( which needs to be written to the cookie )
-            function setCookie(cname, input_id) {
-                document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
-                document.cookie = cname + "=" + document.getElementById(input_id).value + ";"; // creating a cookie
-                // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                // cookie1 = document.cookie;
-                // document.getElementById("demo").innerHTML = cname + "=" + document.getElementById(input_id).value + ";" ; // document.getElementById(input_id).value
-
+            NUM_FIELDS = 3; // number of the input fields on the form  
+            
+            // setCookie: creates cookie inputI = value in the input field ; ( I - number 0..2 )
+            function setCookie() {           
+                var i;
+                document.cookie = "input0=" + document.getElementById("username").value + ";"; // creating a cookie
             }
-
-  // @@@@@@@@@@@@@@ DELETE THIS
-  function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-// @@@@@@@@@@@@@@ DELETE THIS
-function checkCookie() {
-  var user=getCookie("username");
-  if (user != "") {
-    alert("Welcome again " + user);
-  } else {
-     user = prompt("Please enter your name:","");
-     if (user != "" && user != null) {
-       setCookie("username", user, 30);
-     }
-  }
-}
+            
+            // setDefaults : sets the values of the cookies ( input0, input1, input12 ) to the default and
+            // writes the content of username input field to the cookie
+            function setDefaults() {
+                var i;
+                for ( i = 0; i < NUM_FIELDS; i++ ) {
+                    document.cookie = "input" + i + "= "; // setting the VALUE of the cookie to EMPTY
+                }
+                setCookie(); // writes the content of the username input field to the cookie
+            } 
         </script>    
     </head>
     
     <title>Login</title>
-    <body>
+    <body onload="setDefaults()">
         <%
             final String PAGE_NAME = "login_page.jsp"; // page which is loaded now 
         %>
@@ -94,21 +72,8 @@ function checkCookie() {
                                 <!-- creating the input element for the username -->
                                 <div id="demo">Demo</div>
                                     <div class="form-group">
-                                        <label for="username">Username:</label> <!-- username label -->
                                         <%  //HttpSession hSession = request.getSession(); // retrieve the session to which I am going to add variables
                                             HttpSession hSession = AquaMethods.returnSession(request);
-                                            /*
-                                            if ( AquaMethods.sessVarExists(hSession, "fill_in")) {  
-                                                // set the value of fill_in to DEFAULT ( whether there are some session var. which contain values 
-                                                // of the input fields that need later to be filled in )
-                                                hSession.setAttribute("fill_in","false");  
-                                            }
-                                            if ( AquaMethods.sessVarExists(hSession, "page_name")) { 
-                                                // set the value of the page_name to DEFAULT
-                                                // page_name - name of the page where the user was just before he entered the email. 
-                                                hSession.setAttribute("page_name", ""); 
-                                            }
-                                            */
                                             String input0 = ""; // read the value which was before in the input field username to show it again
                                             // IDEA : fill_in variable is set in SubscrServl.java - true if some of the input session variables were set,
                                             // and they need to be added to the form here - this true if the user BEFORE LOADED THIS PAGE and after that he entered
@@ -137,9 +102,9 @@ function checkCookie() {
                                             // store on which page I am now in case the user clicks on subscribe button in the footer
                                             hSession.setAttribute("page_name", PAGE_NAME);
                                         %>
-                                        
+                                        <label for="username">Username:</label> <!-- username label -->
                                         <!-- filling in the username: required -->
-                                        <input type="text" class="form-control form-control-sm" name="username" id="username" onchange="setCookie('input0','username')" required value = "<%= input0 %>" > 
+                                        <input type="text" class="form-control form-control-sm" name="username" id="username" onchange="setCookie()" required value = "<%= input0 %>" > 
                                         <label class="text_color">* Required Field</label>
                                     </div>
                                         
@@ -150,7 +115,6 @@ function checkCookie() {
                                         <input type="password" class="form-control form-control-sm" name="passw" id="passw" required> 
                                         <label class="text_color">* Required Field</label>
                                     </div>
-                                    
                                                                                
                                     <div class="container">
                                         <div class="row">
