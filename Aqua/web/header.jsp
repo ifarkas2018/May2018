@@ -49,6 +49,7 @@
                 //document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // deleting a cookie
                 document.cookie = "fill_in=false;"; // creating a cookie
                 document.cookie = "webpg_name=" + webPageVal;
+                alert("webpg_name="+webPageVal);
             }
         </script>
     </head>
@@ -153,7 +154,7 @@
                     <!-- navbar-expand-sm : the navbar collapses at small breakpoint -->
                     <nav class="navbar navbar-expand-sm navbar-light bg-light">
                         <a class="navbar-brand"><img src="images/bookshelf.png"></a> <!-- company logo -->
-                        <a class="navbar-brand" href="#">Aqua</a> <!-- name of the company -->
+                        <a class="navbar-brand" href="AddSessVar" onclick = "cookieFillIn('index.jsp')">Aqua</a> <!-- name of the company -->
                         <!-- the toggler icon used to toggle the navigation -->
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-    
                             expanded="false" aria-label="Toggle navigation">
@@ -165,14 +166,14 @@
                             <ul class="navbar-nav mr-auto">
                                 <!-- Home link on the navbar -->
                                 <li class="nav-item">   
-                                    <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a> 
+                                    <a class="nav-link" href="AddSessVar" onclick="cookieFillIn('index.jsp')">Home<span class="sr-only">(current)</span></a> 
                                 </li>
                                 <%
                                     if ((!(userType.equals("admin"))) && (!(userType.equals("emp")))) {
                                 %>
                                         <!-- Search link on the navbar -->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="search_page.jsp">Search</a>
+                                            <a class="nav-link" href="AddSessVar" onclick="cookieFillIn('search_page.jsp')">Search</a>
                                         </li>
                                 <%
                                     }
@@ -188,11 +189,11 @@
                                             </a>
                                             <!-- the dropdown submenu -->
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="FillIn" onclick = "cookieFillIn('search_page.jsp')">Search Book</a> <!-- Search Book link on the submenu --> 
+                                                <a class="dropdown-item" href="AddSessVar" onclick = "cookieFillIn('search_page.jsp')">Search Book</a> <!-- Search Book link on the submenu --> 
                                                 <div class="dropdown-divider"></div> <!-- the divider on the drop down menu -->
-                                                <a class="dropdown-item" href="add_page.jsp">Add Book</a> <!-- Add Book link on the submenu --> 
-                                                <a class="dropdown-item" href="FillIn" onclick = "cookieFillIn('update_prev.jsp')">Update Book</a> <!-- Update Book link on the submenu --> 
-                                                <a class="dropdown-item" href="FillIn" onclick = "cookieFillIn('delete_title.jsp')">Delete Book</a> <!-- Delete Book link on the submenu --> 
+                                                <a class="dropdown-item" href="AddSessVar" onclick = "cookieFillIn('add_page.jsp')" >Add Book</a> <!-- Add Book link on the submenu --> 
+                                                <a class="dropdown-item" href="AddSessVar" onclick = "cookieFillIn('update_prev.jsp')">Update Book</a> <!-- Update Book link on the submenu --> 
+                                                <a class="dropdown-item" href="AddSessVar" onclick = "cookieFillIn('delete_title.jsp')">Delete Book</a> <!-- Delete Book link on the submenu --> 
                                             </div>
                                         </li>
                                 <%
@@ -200,11 +201,11 @@
                                 %>
                                 <!-- About link on the navbar -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">About</a>
+                                    <a class="nav-link" href="AddSessVar" onclick = "cookieFillIn('about_page.jsp')">About</a>
                                 </li>
                                 <!-- Contact link on the navbar -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact_page.jsp">Contact</a>
+                                    <a class="nav-link" href="AddSessVar" onclick = "cookieFillIn('contact_page.jsp')">Contact</a>
                                 </li>
                             </ul>
                                 
@@ -216,7 +217,7 @@
                                 %>    
                                         <!-- Sign Up link on the navbar -->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="FillIn" onclick="cookieFillIn('SignUp')">Sign Up</a>
+                                            <a class="nav-link" href="AddSessVar" onclick="cookieFillIn('SignUp')">Sign Up</a>
                                         </li>
                                 <% 
                                     }
@@ -237,7 +238,7 @@
                                 %>    
                                         <!-- Login link on the navbar -->
                                         <li class="nav-item">
-                                            <a class="nav-link" href="FillIn" onclick = "cookieFillIn( 'login_page.jsp' )">Login</a>
+                                            <a class="nav-link" href="AddSessVar" onclick = "cookieFillIn( 'login_page.jsp' )">Login</a>
                                         </li>
                                 <%
                                     }

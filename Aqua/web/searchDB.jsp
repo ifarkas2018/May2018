@@ -171,14 +171,6 @@
                                     ResultSet rs = stmt.executeQuery(sQuery); 
                                     out.println("<br />");
                                     
-                                    /*
-                                    if (rs.next()){ // there are books which meet the criteria
-                                        out.println("The following books meet the search criteria: ");
-                                    } else { // there are none books that meet the criteria
-                                        out.println("<span class=\"red_text\">There are none books that meet the search criteria!</span>");
-                                    }
-                                    */
-                                    
                                     // after clicking on the button searchDB.jsp is shown
                                     out.println("<form action=\"search_page.jsp\" method=\"post\">");
                                     
@@ -188,7 +180,6 @@
                                     } else {
                                         out.println("The following books meet the search criteria: ");
                                        
-                                        
                                         // show the result in an unordered list
                                         out.print("<ul>");
                                         // if in the result set there is the next row

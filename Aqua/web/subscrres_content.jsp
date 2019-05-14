@@ -22,7 +22,7 @@
         <script>
             function setFillIn(){
                 document.cookie = "fill_in=true;"; // should the user return to the form he was on before subscribing the fill_in should be true
-                alert("subscrres_content: " + document.cookie);
+                //alert("subscrres_content: " + document.cookie);
             }
         </script>
     </head>
@@ -49,16 +49,24 @@
                                 <h1>Subscribe</h1>
                                 <br/> 
                                 <%  HttpSession hSession = AquaMethods.returnSession(request);
+                                    String validEmail = String.valueOf(hSession.getAttribute("valid_email"));
                                     String exOccurred = "false"; // whether an exception occured 
-                                    String page_name = String.valueOf(hSession.getAttribute("page_name")); // name of the page where the user was before clicking on the Subscribe button
+                                    // before page_name @@@@@@@@@@@@@@@@@
+                                    String page_name = String.valueOf(hSession.getAttribute("webpg_name")); // name of the page where the user was before clicking on the Subscribe button
                                     exOccurred = String.valueOf(hSession.getAttribute("db_exoccurred"));
-                                    if (exOccurred.equalsIgnoreCase("exists"))
+                                    
+                                    if (validEmail.equalsIgnoreCase("false"))
+                                        out.print( "<span class=\"red_text\">You entered an invalid email address!</span>" );
+                                    else if (exOccurred.equalsIgnoreCase("exists"))
                                         out.print( "<span class=\"red_text\">The email you entered already exists in the database!</span>" );
                                     else if (exOccurred.equalsIgnoreCase("true"))
                                         out.print( "<span class=\"red_text\">An error occurred while accessing the database!</span>" ); 
                                     else {
                                         out.print("Your email was added successfully to the database.<br />Thank you for subscribing to our newsletter!");
                                     } 
+
+                                    if ((page_name.equalsIgnoreCase("null")) || (page_name.equalsIgnoreCase("")) || (page_name == null)) 
+                                        page_name = "index.jsp";
                                 %>
                                 <br /><br />
                                 <!-- after clicking on the button the web page is loaded where the user was before clicking on the Subscribe button -->

@@ -148,7 +148,7 @@
                                 %>
                                     <br/><br/>
                                     <!-- adding the To button to the form; btn-sm is used for smaller ( narrower ) size of the control -->
-                                    <button type="submit" class="btn btn-info btn-sm">To <%=sSource%> </button>
+                                    <button type="submit" class="btn btn-info btn-sm"> <%=sSource%> </button>
                                 </form>
                                 
                             </div> <!-- end of class="col" -->

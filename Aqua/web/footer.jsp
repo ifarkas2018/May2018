@@ -10,6 +10,32 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
        
+        <script>
+            
+        // isEmail : returns true if the email address is valid ( otherwise it returns false )
+        function isEmail(email) {
+            // regex pattern is used for validating email 
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if(!regex.test(email)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+        // createCookie: creates a cookie named valid_email with value that was entered as an email 
+        function createCookie(){
+            var email = document.getElementById("subscr_email").value;
+            var cookie_str = "valid_email=";
+            // if the email is valid the value is true
+            if (isEmail(email)){
+               cookie_str += "true;";
+           } else {
+               cookie_str += "false;"; 
+            }
+            document.cookie = cookie_str; // creating a cookie named valid_email
+        }
+        </script>
     </head>
     <body> 
         <footer>
@@ -70,7 +96,7 @@
                                                 <div class="col">
                                                     <!-- adding the button Subscribe, btn-info is used for defining the color of the button,
                                                          form-control-sm is used for smaller size of the button -->
-                                                        <button type="submit" class="btn btn-info btn-sm" id="btnSubscr">Subscribe</button>
+                                                        <button type="submit" class="btn btn-info btn-sm" id="btnSubscr" onclick="createCookie()">Subscribe</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -113,18 +139,6 @@
         <!-- </div> --> <!-- is this NEEDED end of class="container" -->
        
         
-        <script>
-            
-        // IsEmail : returns true if the email address is valid ( otherwise it returns false )
-        function IsEmail(email) {
-            // regex pattern is used for validating email 
-            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if(!regex.test(email)) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        </script>
+        
     </body>
 </html>
